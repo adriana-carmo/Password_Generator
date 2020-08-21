@@ -135,3 +135,31 @@ button[disabled] {
     font-size: 0.8rem;
   }
 }
+
+.invisible {
+  display: none;
+  visibility: hidden;
+}
+
+span{
+  font-family: sans-serif;
+  background-color: #f9fbfd;
+  font-size: 13px;
+}
+
+.row {
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -ms-flex-wrap:wrap;
+  flex-wrap:wrap;
+  /*margin-right:-15px;
+  margin-left:-15px*/
+}
+
+.col-4{
+  -webkit-box-flex:0;
+  -ms-flex:0 0 33.333333%;
+  flex:0 0 33.333333%;
+  max-width:33.333333%
+}
