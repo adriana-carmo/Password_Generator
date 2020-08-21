@@ -1,5 +1,7 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
 
 var passwordLen = 0;
 var password  = "";
@@ -14,6 +16,9 @@ var criteria = {
 
 // Write password to the #password input
 function writePassword() {
+
+  /*re-assign the value of variable */
+  password  = ""
 
   passwordLen = parseInt(prompt("How many character would you like in the password. Please, the password must have at least 8 and maximum of 128 characters ?"));
 
@@ -37,13 +42,20 @@ function writePassword() {
     criteria.passwordSpecial = confirm("Would you like special characters in the password ?");
   }
 
-  /* Make sure the user has selected at least one criterion */
+  /* Make sure the user has selected at least one criteria */
   if(checkSelectedCriteria()){
   
-    password = generatePassword();
+    /*Generate password */
+    var word = generatePassword();
+
+    /*Random position of user criteria */
+    password = shuffelWord(word);
 
     var passwordText = document.querySelector("#password");
     passwordText.value = password;
+
+    showUserSelectedCriteria()
+
   }
 }
 
@@ -107,16 +119,39 @@ function generatePassword(){
 /*function convertASCIItoChar with intervalo of ASCII code */
 function convertASCIItoChar(min, max){
 
-  //var test = "ABCDEFGHIJLMNOPQSJFJFJOEWRPRIW123456789!@#$%ˆ&*()";
-  //password += test.charAt(Math.floor(Math.random() * Math.floor(test.length - 1))) 
-
-  debugger;
   var numberASCII = Math.floor(Math.random() * Math.floor(max - min + 1) + min) 
 
   password += String.fromCharCode(numberASCII);
-  console.log(password);
+  //console.log(password);
   return password;
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+/*Changes the position of the password "Number + Lowercase + Uppercase + Special Character" 
+Copied this function from
+author: Maximilian Lindsey 
+https://jsfiddle.net/maximilian_lindsey/qa2w2k5z/
+https://stackoverflow.com/questions/3943772/how-do-i-shuffle-the-characters-in-a-string-in-javascript*/
+function shuffelWord (Word){
+  var shuffledWord = '';
+  Word = Word.split('');
+  while (Word.length > 0) {
+    shuffledWord +=  Word.splice(Word.length * Math.random() << 0, 1);
+  }
+  return shuffledWord;
+}
+
+/*Show user-selected criteria in index.html */
+function showUserSelectedCriteria(){
+  document.getElementById("size").textContent = "Length Password: " + passwordLen;
+  
+  (criteria.passwordNumber)?document.getElementById("number").textContent = "Number Password: YES": document.getElementById("number").textContent = "Number Password: NO";
+  (criteria.passwordLow)?document.getElementById("lowerCase").textContent = "LowerCase Password: YES": document.getElementById("lowerCase").textContent = "LowerCase Password: NO" ;
+  (criteria.passwordUpper)?document.getElementById("upperCase").textContent = "UpperCase Password: YES" : document.getElementById("upperCase").textContent = "UpperCase Password: NO" ; 
+  (criteria.passwordSpecial)?document.getElementById("special").textContent = "Special Character Password: YES": document.getElementById("special").textContent = "Special Character Password: NO";
+  
+  /*Show the div with span tag */
+  document.getElementById("selected").style.visibility = "visible";
+  document.getElementById("selected").style.display= "block";
+}
+
+
