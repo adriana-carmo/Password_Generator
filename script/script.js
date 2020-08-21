@@ -2,18 +2,21 @@
 var generateBtn = document.querySelector("#generate");
 
 var passwordLen = 0;
-var passwordNumber = false;
-var passwordLow = false;
-var passwordUpper = false;
-var passwordSpecial = false;
 var password  = "";
+
+/*obj with criteria to generator password */
+var criteria = {
+  passwordNumber : false,
+  passwordLow : false,
+  passwordUpper : false,  
+  passwordSpecial : false
+}
 
 // Write password to the #password input
 function writePassword() {
 
   passwordLen = parseInt(prompt("How many character would you like in the password. Please, the password must have at least 8 and maximum of 128 characters ?"));
 
-  debugger;
   if (isNaN(passwordLen))
   {
     alert("It is not a number. Please enter a number from 8 to 128");
@@ -25,39 +28,94 @@ function writePassword() {
     return;
   }
   else{ 
-    passwordNumber = confirm("Would you like number in the password ?");
+    criteria.passwordNumber = confirm("Would you like number in the password ?");
 
-    passwordLow = confirm("Would you like lowercase character in the password ?");
+    criteria.passwordLow = confirm("Would you like lowercase character in the password ?");
 
-    passwordUpper = confirm("Would you like uppercase character in the password ?");
+    criteria.passwordUpper = confirm("Would you like uppercase character in the password ?");
 
-    passwordSpecial = confirm("Would you like special characters in the password ?");
-  }
-  if (passwordNumber == false && passwordLow == false &&  passwordUpper == false &&  passwordSpecial == false){
-    alert("You must select at least one criteria to generate the password.");
-  }
-  else{
-     password = generatePassword();
+    criteria.passwordSpecial = confirm("Would you like special characters in the password ?");
   }
 
-
+  /* Make sure the user has selected at least one criterion */
+  if(checkSelectedCriteria()){
   
-  var passwordText = document.querySelector("#password");
+    password = generatePassword();
 
-  passwordText.value = password;
- 
+    var passwordText = document.querySelector("#password");
+    passwordText.value = password;
+  }
 }
 
+/* Verify that the user has selected at least one of the selected password generation criteria*/
+function checkSelectedCriteria () {
+
+  if (criteria.passwordLow == false && 
+      criteria.passwordNumber == false &&  
+      criteria.passwordUpper == false &&  
+      criteria.passwordSpecial == false) {
+    alert("You must select at least one criteria to generate the password.");
+    return false;
+  }
+
+  return true;
+}
+
+/*Generator Password with selected criteria*/
 function generatePassword(){
-  var teste = "ABECDLSLKSJFJFJOEWRPRIW123456789";
- 
-  for (var i = 0; i < passwordLen ; i++){
-    password += teste.charAt(Math.floor(Math.random() * Math.floor(teste.length - 1))) 
-  //  console.log(password);
+
+  /*For loop to execute of password length*/
+  for (var i = 0; i < passwordLen ; ){
+    /*Condition to execute only selected criteria (NUMBER) */
+    if (criteria.passwordNumber)
+    {
+      /*function convertASCIItoChar with ASCII code parameter - ASCII code of number 0 to 9  */
+      password = convertASCIItoChar(48, 57)
+      i++
+      if (i === passwordLen) { break; }
+    }
+    /*Condition to execute only selected criteria (LOWERCASE LETTER)*/
+    if(criteria.passwordLow)
+    {
+      /*function convertASCIItoChar with ASCII code parameter - ASCII code of lowercase letter a to z  */
+      password = convertASCIItoChar(97, 122)
+      i++
+      if (i === passwordLen) { break; }
+    }
+
+    /*Condition to execute only selected criteria (UPPERCASE LETTER)*/
+    if(criteria.passwordUpper)
+    {
+      /*function convertASCIItoChar with ASCII code parameter - ASCII code of uppercase letter A to Z  */
+      password = convertASCIItoChar(65, 90)
+      i++
+      if (i === passwordLen) { break; }
+    }
+
+    /*Condition to execute only selected criteria (SPECIAL CHARACTER)*/
+    if(criteria.passwordSpecial)
+    {
+      /*function convertASCIItoChar with ASCII code parameter - ASCII code of special character !#$%&()*+,-./  */
+      password = convertASCIItoChar(33, 47)
+      i++
+      if (i === passwordLen) { break; }
+    }
   }
   return password;
+}
 
+/*function convertASCIItoChar with intervalo of ASCII code */
+function convertASCIItoChar(min, max){
 
+  //var test = "ABCDEFGHIJLMNOPQSJFJFJOEWRPRIW123456789!@#$%ˆ&*()";
+  //password += test.charAt(Math.floor(Math.random() * Math.floor(test.length - 1))) 
+
+  debugger;
+  var numberASCII = Math.floor(Math.random() * Math.floor(max - min + 1) + min) 
+
+  password += String.fromCharCode(numberASCII);
+  console.log(password);
+  return password;
 }
 
 // Add event listener to generate button
