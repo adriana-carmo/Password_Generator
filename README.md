@@ -1,4 +1,4 @@
-# bootcamp-hw-03
+# Password Generator
 
 03 JavaScript: Password Generator
 Create an application that generates a random password based on user-selected criteria. This app will run in the browser and feature dynamically updated HTML and CSS powered by your JavaScript code. It will also feature a clean and polished user interface and be responsive, ensuring that it adapts to multiple screen sizes.
@@ -25,3 +25,14 @@ WHEN all prompts are answered
 THEN a password is generated that matches the selected criteria
 WHEN the password is generated
 THEN the password is either displayed in an alert or written to the page
+
+![Layout_Page](./img/homepage.png)
+
+After selecting the criterion the password was generated
+![Generated_password](./img/generated_password.png)
+
+
+## 📝 License
+
+Copyright © 2020 [Adriana](https://github.com/adriana-carmo).<br />
+[Password Generator Homepage](https://adriana-carmo.github.io/Password_Generator)
