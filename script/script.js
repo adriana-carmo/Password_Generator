@@ -20,11 +20,11 @@ function writePassword() {
   /*re-assign the value of variable */
   password  = ""
 
-  passwordLen = parseInt(prompt("How many character would you like in the password. Please, the password must have at least 8 and maximum of 128 characters ?"));
+  passwordLen = parseInt(prompt("How many characters would you like in the password. Please, the password must have at least 8 and maximum of 128 characters?"));
 
   if (isNaN(passwordLen))
   {
-    alert("It is not a number. Please enter a number from 8 to 128");
+    alert("It is not a number. Please enter a number between 8 to 128");
     return; 
   }
   else if (passwordLen <8 || passwordLen >128)
@@ -33,13 +33,13 @@ function writePassword() {
     return;
   }
   else{ 
-    criteria.passwordNumber = confirm("Would you like number in the password ?");
+    criteria.passwordNumber = confirm("Would you like number in the password?");
 
-    criteria.passwordLow = confirm("Would you like lowercase character in the password ?");
+    criteria.passwordLow = confirm("Would you like lowercase characters in the password?");
 
-    criteria.passwordUpper = confirm("Would you like uppercase character in the password ?");
+    criteria.passwordUpper = confirm("Would you like uppercase characters in the password?");
 
-    criteria.passwordSpecial = confirm("Would you like special characters in the password ?");
+    criteria.passwordSpecial = confirm("Would you like special characters in the password?");
   }
 
   /* Make sure the user has selected at least one criteria */
